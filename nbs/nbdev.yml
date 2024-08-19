@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "Pothole_detection"
+  site-url: "https://fevzikilas.github.io/Pothole_detection"
+  description: "Pothole Detection using Yolov8"
+  repo-branch: main
+  repo-url: "https://github.com/fevzikilas/Pothole_detection"

@@ -1,0 +1,6 @@
+website:
+  sidebar:
+    contents:
+      - pothole_detection.ipynb
+      - PotholeDetection.ipynb
+      - fevzikilas.ipynb
