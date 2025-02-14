@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Pothole Detection 1 – Pothole_detection</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e4f079e1a24fd4e277facff8f930f2ab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Pothole Detection 1 – Pothole_detection">
+<meta property="og:description" content="Pothole Detection using Yolov8">
+<meta property="og:site_name" content="Pothole_detection">
+<meta name="twitter:title" content="Pothole Detection 1 – Pothole_detection">
+<meta name="twitter:description" content="Pothole Detection using Yolov8">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Pothole_detection</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./pothole_detection.html">Pothole Detection 1</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./potholedetection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pothole Detection 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fevzikilas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fevzi KILAS</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pothole_detection.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Pothole Detection 1</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#dense-optical-flow-histogram-equalization" id="toc-dense-optical-flow-histogram-equalization" class="nav-link active" data-scroll-target="#dense-optical-flow-histogram-equalization">Dense Optical Flow &amp; Histogram Equalization</a></li>
+  <li><a href="#color-space-transformation-process" id="toc-color-space-transformation-process" class="nav-link" data-scroll-target="#color-space-transformation-process">Color space transformation process</a></li>
+  <li><a href="#non-maximum-supression-detection" id="toc-non-maximum-supression-detection" class="nav-link" data-scroll-target="#non-maximum-supression-detection">Non-Maximum Supression &amp; Detection</a></li>
+  <li><a href="#detection" id="toc-detection" class="nav-link" data-scroll-target="#detection">Detection</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/fevzikilas/Pothole_detection/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Pothole Detection 1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+&lt;!DOCTYPE html&gt;
+
+
+<p><img style="display: block;
+            padding-right: 5%;
+            width: 50%;" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWJ2YzFjMjF0bTU1MTc4a3FyN2Z6aGJoYWg4ZHoybTk2aXI3bmxvbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/FT6adJ0iu560vH3Kqy/giphy.gif"></p>
+<hr>
+<hr>
+<h1 style="font-family:Comic Sans MS;" align="center">
+Computer Vision Project
+</h1>
+<h1 style="font-family:Comic Sans MS;" align="center">
+Department of Computer Engineering
+</h1>
+<h1 style="font-family:Comic Sans MS;" align="center">
+Hacettepe University
+</h1>
+<h1 style="font-family:Comic Sans MS;" align="center">
+Ankara, Turkey
+</h1>
+<hr>
+<hr>
+
+
+<p>Fevzi Kılas 2200356822 Hacettepe University fevzi.kilas@hacettepe.edu.tr</p>
+<div id="96e9229b" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cv2</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ultralytics <span class="im">import</span> YOLO</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="69e6f0c1" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>video_folder <span class="op">=</span> <span class="st">'train/rgb'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>video_files <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(video_folder) <span class="cf">if</span> os.path.isfile(os.path.join(video_folder, f))]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>num_videos <span class="op">=</span> <span class="bu">len</span>(video_files)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(num_videos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>373</code></pre>
+</div>
+</div>
+<div id="c97a898c" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>selected_videos <span class="op">=</span> random.sample(video_files, <span class="dv">10</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Randomly select 10 video:"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> video <span class="kw">in</span> selected_videos:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(video)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Randomly select 10 video:
+0038.mp4
+0328.mp4
+0233.mp4
+0006.mp4
+0317.mp4
+0516.mp4
+0223.mp4
+0055.mp4
+0035.mp4
+0010.mp4</code></pre>
+</div>
+</div>
+<div id="29f7f695" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_flow(frame1, frame2):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    gray1 <span class="op">=</span> cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    gray2 <span class="op">=</span> cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    gray1 <span class="op">=</span> cv2.GaussianBlur(gray1, (<span class="dv">3</span>, <span class="dv">3</span>), <span class="dv">5</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    gray2 <span class="op">=</span> cv2.GaussianBlur(gray2, (<span class="dv">3</span>, <span class="dv">3</span>), <span class="dv">5</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    flow <span class="op">=</span> cv2.calcOpticalFlowFarneback(gray1, gray2, <span class="va">None</span>, pyr_scale<span class="op">=</span><span class="fl">0.75</span>, levels<span class="op">=</span><span class="dv">3</span>, winsize<span class="op">=</span><span class="dv">5</span>, iterations<span class="op">=</span><span class="dv">3</span>, poly_n<span class="op">=</span><span class="dv">10</span>, poly_sigma<span class="op">=</span><span class="fl">1.2</span>, flags<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> flow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="38eb56fe" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_motion_mask(flow_mag, motion_thresh<span class="op">=</span><span class="dv">1</span>, kernel<span class="op">=</span>np.ones((<span class="dv">7</span>,<span class="dv">7</span>))):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    motion_mask <span class="op">=</span> np.uint8(flow_mag <span class="op">&gt;</span> motion_thresh) <span class="op">*</span> <span class="dv">255</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    motion_mask <span class="op">=</span> cv2.erode(motion_mask, kernel, iterations<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    motion_mask <span class="op">=</span> cv2.morphologyEx(motion_mask, cv2.MORPH_OPEN, kernel, iterations<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    motion_mask <span class="op">=</span> cv2.morphologyEx(motion_mask, cv2.MORPH_CLOSE, kernel, iterations<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> motion_mask</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6ef6500b" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_flow_histo(frame1, frame2):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    gray1 <span class="op">=</span> cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    gray2 <span class="op">=</span> cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Apply Histogram Equalization and increase contrast</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    gray1 <span class="op">=</span> cv2.equalizeHist(gray1)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    gray2 <span class="op">=</span> cv2.equalizeHist(gray2)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    gray1 <span class="op">=</span> cv2.GaussianBlur(gray1, (<span class="dv">3</span>, <span class="dv">3</span>), <span class="dv">5</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    gray2 <span class="op">=</span> cv2.GaussianBlur(gray2, (<span class="dv">3</span>, <span class="dv">3</span>), <span class="dv">5</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    flow <span class="op">=</span> cv2.calcOpticalFlowFarneback(gray1, gray2, <span class="va">None</span>, pyr_scale<span class="op">=</span><span class="fl">0.75</span>, levels<span class="op">=</span><span class="dv">3</span>, winsize<span class="op">=</span><span class="dv">5</span>, iterations<span class="op">=</span><span class="dv">3</span>, poly_n<span class="op">=</span><span class="dv">10</span>, poly_sigma<span class="op">=</span><span class="fl">1.2</span>, flags<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> flow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d543918d" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> apply_color_space_conversion(frame):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert image to HSV color space</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    hsv <span class="op">=</span> cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Getting better contrast by taking the V (value) channel in color space</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    v_channel <span class="op">=</span> hsv[:,:,<span class="dv">2</span>]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Apply histogram equalization</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    equalized_v_channel <span class="op">=</span> cv2.equalizeHist(v_channel)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reassemble</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    hsv[:,:,<span class="dv">2</span>] <span class="op">=</span> equalized_v_channel</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Converting from HSV to BGR</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    result_frame <span class="op">=</span> cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result_frame</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># KAYNAK: https://staff.fnwi.uva.nl/r.vandenboomgaard/ComputerVision/LectureNotes/IP/PointOperators/HistogramEqualization.html</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="dense-optical-flow-histogram-equalization" class="level1">
+<h1>Dense Optical Flow &amp; Histogram Equalization</h1>
+<div id="419da6c6" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_video(video_path):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    cap <span class="op">=</span> cv2.VideoCapture(video_path)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    ret, frame1 <span class="op">=</span> cap.read()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> ret:</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Video </span><span class="sc">{</span>video_path<span class="sc">}</span><span class="ss"> not found."</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> cap.isOpened():</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        ret, frame2 <span class="op">=</span> cap.read()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        ret, frame3 <span class="op">=</span> cap.read()</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> ret:</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculating Dense Optical Flow</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        flow <span class="op">=</span> compute_flow(frame1, frame2)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        mag, _ <span class="op">=</span> cv2.cartToPolar(flow[..., <span class="dv">0</span>], flow[..., <span class="dv">1</span>])</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculating Dense Optical Flow with Histogram Equalization</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        flow_histo <span class="op">=</span> compute_flow_histo(frame1, frame3)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        mag_histo, _ <span class="op">=</span> cv2.cartToPolar(flow_histo[..., <span class="dv">0</span>], flow_histo[..., <span class="dv">1</span>])</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Create motion mask</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        min_thresh <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        max_thresh <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        motion_thresh <span class="op">=</span> np.c_[np.linspace(min_thresh, max_thresh, frame1.shape[<span class="dv">0</span>])].repeat(frame1.shape[<span class="dv">1</span>], axis<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        mask <span class="op">=</span> get_motion_mask(mag, motion_thresh<span class="op">=</span>motion_thresh)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        mask_histo <span class="op">=</span> get_motion_mask(mag_histo, motion_thresh<span class="op">=</span>motion_thresh)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        frame_resized <span class="op">=</span> cv2.resize(frame2, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        mask_resized <span class="op">=</span> cv2.resize(mask, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        frame3_resized <span class="op">=</span> cv2.resize(frame3, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>        mask_histo_resized <span class="op">=</span> cv2.resize(mask_histo, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Results of Flow w/ Histogram Equalization</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>        cv2.imshow(<span class="st">"Frame"</span>, frame_resized)</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>        cv2.imshow(<span class="st">"Motion Mask"</span>, mask_resized)</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        cv2.imshow(<span class="st">"Motion Mask Histo"</span>, mask_histo_resized)</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cv2.waitKey(<span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span> <span class="op">==</span> <span class="bu">ord</span>(<span class="st">'q'</span>):</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>        frame1 <span class="op">=</span> frame2</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    cap.release()</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    cv2.destroyAllWindows()</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> video <span class="kw">in</span> selected_videos:</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>    video_path <span class="op">=</span> os.path.join(video_folder, video)</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>video<span class="sc">}</span><span class="ss"> processing..."</span>)</span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>    process_video(video_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0215.mp4 processing...</code></pre>
+</div>
+</div>
+</section>
+<section id="color-space-transformation-process" class="level1">
+<h1>Color space transformation process</h1>
+<div id="9f388618" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_video(video_path):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    cap <span class="op">=</span> cv2.VideoCapture(video_path)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    ret, frame1 <span class="op">=</span> cap.read()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> ret:</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Video </span><span class="sc">{</span>video_path<span class="sc">}</span><span class="ss"> not found."</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> cap.isOpened():</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        ret, frame2 <span class="op">=</span> cap.read()</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> ret:</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Color space transformation process</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        processed_frame1 <span class="op">=</span> apply_color_space_conversion(frame1)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        processed_frame2 <span class="op">=</span> apply_color_space_conversion(frame2)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Detection</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># detected_frame2 = detect_objects(processed_frame2)</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculating Dense Optical Flow</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        flow <span class="op">=</span> compute_flow_histo(processed_frame1, processed_frame2)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        mag, _ <span class="op">=</span> cv2.cartToPolar(flow[..., <span class="dv">0</span>], flow[..., <span class="dv">1</span>])</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Create motion mask</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>        min_thresh <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>        max_thresh <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>        motion_thresh <span class="op">=</span> np.c_[np.linspace(min_thresh, max_thresh, frame1.shape[<span class="dv">0</span>])].repeat(frame1.shape[<span class="dv">1</span>], axis<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        mask <span class="op">=</span> get_motion_mask(mag, motion_thresh<span class="op">=</span>motion_thresh)</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Resize frames and mask</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>        frame1_resized <span class="op">=</span> cv2.resize(frame1, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        frame2_resized <span class="op">=</span> cv2.resize(frame2, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>        processed_frame2_resized <span class="op">=</span> cv2.resize(processed_frame2, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>        mask_resized <span class="op">=</span> cv2.resize(mask, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Results</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>        cv2.imshow(<span class="st">"Original Frame"</span>, frame1_resized)</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>        cv2.imshow(<span class="st">"Color space transformed Frame"</span>, processed_frame2_resized)</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>        cv2.imshow(<span class="st">"Motion Mask"</span>, mask_resized)</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cv2.waitKey(<span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span> <span class="op">==</span> <span class="bu">ord</span>(<span class="st">'q'</span>):</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>        frame1 <span class="op">=</span> frame2</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>    cap.release</span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>    cap.release()</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>    cv2.destroyAllWindows()</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> video <span class="kw">in</span> selected_videos:</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>    video_path <span class="op">=</span> os.path.join(video_folder, video)</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>video<span class="sc">}</span><span class="ss"> processing..."</span>)</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    process_video(video_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0328.mp4 processing...
+0215.mp4 processing...
+0554.mp4 processing...
+0516.mp4 processing...
+0134.mp4 processing...
+0328.mp4 processing...
+0325.mp4 processing...</code></pre>
+</div>
+</div>
+</section>
+<section id="non-maximum-supression-detection" class="level1">
+<h1>Non-Maximum Supression &amp; Detection</h1>
+<div id="852808ce" class="cell" data-scrolled="true" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> YOLO(<span class="st">"seg_v1.pt"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> detect_objects(frame):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Call YOLO model for output and get the output</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> model.predict(frame)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># process boxes in predictions</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> result <span class="kw">in</span> results:</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> bbox <span class="kw">in</span> result.boxes.xyxy:</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Check the boxes</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>            x1, y1, x2, y2 <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, bbox)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>            cv2.rectangle(frame, (x1, y1), (x2, y2), (<span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">0</span>), <span class="dv">2</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>            text <span class="op">=</span> <span class="ss">f"Class: Pothole"</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>            cv2.putText(frame, text, (x1, y1 <span class="op">-</span> <span class="dv">10</span>), cv2.FONT_HERSHEY_SIMPLEX, <span class="fl">0.5</span>, (<span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">0</span>), <span class="dv">2</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> frame</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_motion_mask_x(magnitude, motion_thresh):</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    mask <span class="op">=</span> np.zeros_like(magnitude, dtype<span class="op">=</span>np.uint8)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    mask[magnitude <span class="op">&gt;</span> motion_thresh] <span class="op">=</span> <span class="dv">255</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mask</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> non_maximum_suppression(mask, kernel_size<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    dilated <span class="op">=</span> cv2.dilate(mask, np.ones((kernel_size, kernel_size), np.uint8))</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    nms_mask <span class="op">=</span> (mask <span class="op">==</span> dilated) <span class="op">&amp;</span> (mask <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> nms_mask.astype(np.uint8) <span class="op">*</span> <span class="dv">255</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_video(video_path):</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    cap <span class="op">=</span> cv2.VideoCapture(video_path)</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    ret, frame1 <span class="op">=</span> cap.read()</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> ret:</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Video </span><span class="sc">{</span>video_path<span class="sc">}</span><span class="ss"> not found."</span>)</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    frame1 <span class="op">=</span> apply_color_space_conversion(frame1)</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> cap.isOpened():</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>        ret, frame2 <span class="op">=</span> cap.read()</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> ret:</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>        processed_frame2 <span class="op">=</span> apply_color_space_conversion(frame2)</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>        detected_frame <span class="op">=</span> detect_objects(frame1)</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>        flow <span class="op">=</span> compute_flow_histo(frame1, processed_frame2)</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>        mag, _ <span class="op">=</span> cv2.cartToPolar(flow[..., <span class="dv">0</span>], flow[..., <span class="dv">1</span>])</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>        min_thresh <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>        max_thresh <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>        motion_thresh <span class="op">=</span> np.c_[np.linspace(min_thresh, max_thresh, frame1.shape[<span class="dv">0</span>])].repeat(frame1.shape[<span class="dv">1</span>], axis<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>        mask <span class="op">=</span> get_motion_mask(mag, motion_thresh<span class="op">=</span>motion_thresh)</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>        mask_x <span class="op">=</span> get_motion_mask_x(mag, motion_thresh<span class="op">=</span>motion_thresh)</span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>        nms_mask <span class="op">=</span> non_maximum_suppression(mask_x)</span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>        processed_frame2_resized <span class="op">=</span> cv2.resize(processed_frame2, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>        mask_resized <span class="op">=</span> cv2.resize(mask, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>        nms_mask_resized <span class="op">=</span> cv2.resize(nms_mask, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>        detected_frame_resized <span class="op">=</span> cv2.resize(detected_frame, (<span class="dv">640</span>, <span class="dv">480</span>))</span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>        cv2.imshow(<span class="st">"Processed Frame"</span>, processed_frame2_resized)</span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>        cv2.imshow(<span class="st">"Motion Mask"</span>, mask_resized)</span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>        cv2.imshow(<span class="st">"NMS Motion Mask"</span>, nms_mask_resized)</span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>        cv2.imshow(<span class="st">"DETECTIOM"</span>,detected_frame_resized)</span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cv2.waitKey(<span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span> <span class="op">==</span> <span class="bu">ord</span>(<span class="st">'q'</span>):</span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>        frame1 <span class="op">=</span> frame2</span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a>    cap.release()</span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a>    cv2.destroyAllWindows()</span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> video <span class="kw">in</span> selected_videos:</span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a>    video_path <span class="op">=</span> os.path.join(video_folder, video)</span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>video<span class="sc">}</span><span class="ss"> processing..."</span>)</span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a>    process_video(video_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0328.mp4 processing...
+
+0: 512x512 6 Potholes, 324.5ms
+Speed: 6.0ms preprocess, 324.5ms inference, 27.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 343.2ms
+Speed: 4.0ms preprocess, 343.2ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 347.3ms
+Speed: 5.0ms preprocess, 347.3ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 379.0ms
+Speed: 5.0ms preprocess, 379.0ms inference, 11.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 337.6ms
+Speed: 6.1ms preprocess, 337.6ms inference, 8.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 335.7ms
+Speed: 6.0ms preprocess, 335.7ms inference, 9.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 342.8ms
+Speed: 4.0ms preprocess, 342.8ms inference, 11.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 356.2ms
+Speed: 6.0ms preprocess, 356.2ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 378.3ms
+Speed: 8.0ms preprocess, 378.3ms inference, 8.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 340.2ms
+Speed: 6.5ms preprocess, 340.2ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 332.6ms
+Speed: 6.6ms preprocess, 332.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 321.8ms
+Speed: 5.6ms preprocess, 321.8ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 333.5ms
+Speed: 5.0ms preprocess, 333.5ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 331.4ms
+Speed: 4.0ms preprocess, 331.4ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 333.9ms
+Speed: 5.0ms preprocess, 333.9ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 336.1ms
+Speed: 4.0ms preprocess, 336.1ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 349.1ms
+Speed: 5.0ms preprocess, 349.1ms inference, 12.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 357.7ms
+Speed: 6.0ms preprocess, 357.7ms inference, 11.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 330.2ms
+Speed: 5.0ms preprocess, 330.2ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 335.4ms
+Speed: 6.0ms preprocess, 335.4ms inference, 5.9ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 372.2ms
+Speed: 4.0ms preprocess, 372.2ms inference, 16.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 335.0ms
+Speed: 5.0ms preprocess, 335.0ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 335.3ms
+Speed: 5.1ms preprocess, 335.3ms inference, 11.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 331.6ms
+Speed: 6.0ms preprocess, 331.6ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 318.7ms
+Speed: 3.0ms preprocess, 318.7ms inference, 9.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 368.1ms
+Speed: 4.0ms preprocess, 368.1ms inference, 12.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 336.3ms
+Speed: 5.0ms preprocess, 336.3ms inference, 18.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 333.4ms
+Speed: 5.0ms preprocess, 333.4ms inference, 14.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 372.7ms
+Speed: 7.0ms preprocess, 372.7ms inference, 12.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 331.6ms
+Speed: 5.0ms preprocess, 331.6ms inference, 9.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 352.3ms
+Speed: 4.0ms preprocess, 352.3ms inference, 11.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 384.2ms
+Speed: 7.0ms preprocess, 384.2ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 350.2ms
+Speed: 3.0ms preprocess, 350.2ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 352.4ms
+Speed: 7.0ms preprocess, 352.4ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 339.3ms
+Speed: 7.0ms preprocess, 339.3ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 343.4ms
+Speed: 7.0ms preprocess, 343.4ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 333.5ms
+Speed: 4.0ms preprocess, 333.5ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 344.6ms
+Speed: 5.0ms preprocess, 344.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 341.7ms
+Speed: 7.0ms preprocess, 341.7ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 336.5ms
+Speed: 5.5ms preprocess, 336.5ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 332.2ms
+Speed: 4.0ms preprocess, 332.2ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 374.2ms
+Speed: 6.0ms preprocess, 374.2ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 320.6ms
+Speed: 6.0ms preprocess, 320.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 335.1ms
+Speed: 4.0ms preprocess, 335.1ms inference, 9.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 330.1ms
+Speed: 4.0ms preprocess, 330.1ms inference, 11.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 360.3ms
+Speed: 4.0ms preprocess, 360.3ms inference, 4.9ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 347.1ms
+Speed: 5.0ms preprocess, 347.1ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+0215.mp4 processing...
+
+0: 512x512 1 Pothole, 327.6ms
+Speed: 4.0ms preprocess, 327.6ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 321.1ms
+Speed: 6.0ms preprocess, 321.1ms inference, 4.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 347.8ms
+Speed: 6.0ms preprocess, 347.8ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 361.0ms
+Speed: 6.0ms preprocess, 361.0ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 331.5ms
+Speed: 6.0ms preprocess, 331.5ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 353.1ms
+Speed: 4.0ms preprocess, 353.1ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 344.9ms
+Speed: 4.0ms preprocess, 344.9ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 342.5ms
+Speed: 6.0ms preprocess, 342.5ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 344.6ms
+Speed: 5.0ms preprocess, 344.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 374.8ms
+Speed: 5.0ms preprocess, 374.8ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 334.8ms
+Speed: 6.0ms preprocess, 334.8ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 371.2ms
+Speed: 9.0ms preprocess, 371.2ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 342.6ms
+Speed: 4.0ms preprocess, 342.6ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 320.9ms
+Speed: 4.0ms preprocess, 320.9ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 333.2ms
+Speed: 6.0ms preprocess, 333.2ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 337.5ms
+Speed: 5.0ms preprocess, 337.5ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 382.1ms
+Speed: 7.0ms preprocess, 382.1ms inference, 6.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 335.8ms
+Speed: 6.0ms preprocess, 335.8ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 321.1ms
+Speed: 4.0ms preprocess, 321.1ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 343.3ms
+Speed: 7.0ms preprocess, 343.3ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 320.7ms
+Speed: 4.0ms preprocess, 320.7ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 324.7ms
+Speed: 6.0ms preprocess, 324.7ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 337.2ms
+Speed: 5.5ms preprocess, 337.2ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 391.2ms
+Speed: 4.0ms preprocess, 391.2ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 349.1ms
+Speed: 6.0ms preprocess, 349.1ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 412.1ms
+Speed: 3.5ms preprocess, 412.1ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 356.2ms
+Speed: 5.0ms preprocess, 356.2ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 334.6ms
+Speed: 9.0ms preprocess, 334.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 318.1ms
+Speed: 6.0ms preprocess, 318.1ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 336.2ms
+Speed: 6.0ms preprocess, 336.2ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 320.4ms
+Speed: 5.0ms preprocess, 320.4ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 344.7ms
+Speed: 6.0ms preprocess, 344.7ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 319.8ms
+Speed: 6.0ms preprocess, 319.8ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 335.9ms
+Speed: 4.0ms preprocess, 335.9ms inference, 4.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 330.6ms
+Speed: 6.0ms preprocess, 330.6ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 326.3ms
+Speed: 4.0ms preprocess, 326.3ms inference, 5.2ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 318.6ms
+Speed: 4.4ms preprocess, 318.6ms inference, 4.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 325.2ms
+Speed: 5.0ms preprocess, 325.2ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 317.9ms
+Speed: 7.0ms preprocess, 317.9ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 334.6ms
+Speed: 5.0ms preprocess, 334.6ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 339.6ms
+Speed: 4.0ms preprocess, 339.6ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 348.6ms
+Speed: 4.0ms preprocess, 348.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 328.1ms
+Speed: 4.0ms preprocess, 328.1ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 322.2ms
+Speed: 4.0ms preprocess, 322.2ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 323.2ms
+Speed: 3.5ms preprocess, 323.2ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 325.3ms
+Speed: 5.0ms preprocess, 325.3ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 332.5ms
+Speed: 5.0ms preprocess, 332.5ms inference, 6.4ms postprocess per image at shape (1, 3, 512, 512)
+0554.mp4 processing...
+
+0: 512x512 1 Pothole, 322.0ms
+Speed: 4.0ms preprocess, 322.0ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 339.3ms
+Speed: 7.0ms preprocess, 339.3ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 334.6ms
+Speed: 5.0ms preprocess, 334.6ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 357.0ms
+Speed: 4.0ms preprocess, 357.0ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 336.8ms
+Speed: 4.1ms preprocess, 336.8ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 332.1ms
+Speed: 12.0ms preprocess, 332.1ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 343.5ms
+Speed: 6.0ms preprocess, 343.5ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 346.6ms
+Speed: 5.0ms preprocess, 346.6ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 333.6ms
+Speed: 6.0ms preprocess, 333.6ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 369.1ms
+Speed: 7.5ms preprocess, 369.1ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 327.7ms
+Speed: 4.0ms preprocess, 327.7ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 329.7ms
+Speed: 6.0ms preprocess, 329.7ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 315.3ms
+Speed: 4.0ms preprocess, 315.3ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 374.5ms
+Speed: 7.0ms preprocess, 374.5ms inference, 6.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 338.1ms
+Speed: 7.0ms preprocess, 338.1ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 362.2ms
+Speed: 7.0ms preprocess, 362.2ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 337.2ms
+Speed: 8.0ms preprocess, 337.2ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 347.2ms
+Speed: 5.0ms preprocess, 347.2ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 314.5ms
+Speed: 6.0ms preprocess, 314.5ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 334.0ms
+Speed: 5.0ms preprocess, 334.0ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 331.6ms
+Speed: 5.1ms preprocess, 331.6ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 340.5ms
+Speed: 5.0ms preprocess, 340.5ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 326.2ms
+Speed: 5.0ms preprocess, 326.2ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 344.4ms
+Speed: 6.0ms preprocess, 344.4ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 352.7ms
+Speed: 4.0ms preprocess, 352.7ms inference, 8.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 324.7ms
+Speed: 4.5ms preprocess, 324.7ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 327.7ms
+Speed: 4.0ms preprocess, 327.7ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 337.6ms
+Speed: 5.0ms preprocess, 337.6ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 334.7ms
+Speed: 4.0ms preprocess, 334.7ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 312.6ms
+Speed: 4.0ms preprocess, 312.6ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 319.8ms
+Speed: 6.0ms preprocess, 319.8ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 350.3ms
+Speed: 6.0ms preprocess, 350.3ms inference, 8.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 345.3ms
+Speed: 5.0ms preprocess, 345.3ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 321.4ms
+Speed: 4.0ms preprocess, 321.4ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 321.7ms
+Speed: 4.9ms preprocess, 321.7ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 329.9ms
+Speed: 4.0ms preprocess, 329.9ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 327.7ms
+Speed: 5.5ms preprocess, 327.7ms inference, 4.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 356.6ms
+Speed: 4.0ms preprocess, 356.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 322.1ms
+Speed: 4.0ms preprocess, 322.1ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 334.6ms
+Speed: 5.0ms preprocess, 334.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 325.7ms
+Speed: 4.0ms preprocess, 325.7ms inference, 6.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 329.7ms
+Speed: 5.5ms preprocess, 329.7ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 390.3ms
+Speed: 5.0ms preprocess, 390.3ms inference, 6.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 318.1ms
+Speed: 5.0ms preprocess, 318.1ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 340.5ms
+Speed: 5.0ms preprocess, 340.5ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 340.7ms
+Speed: 4.0ms preprocess, 340.7ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 342.5ms
+Speed: 6.0ms preprocess, 342.5ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+0516.mp4 processing...
+
+0: 512x512 (no detections), 340.8ms
+Speed: 4.0ms preprocess, 340.8ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 350.1ms
+Speed: 6.0ms preprocess, 350.1ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 335.0ms
+Speed: 5.0ms preprocess, 335.0ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 354.2ms
+Speed: 4.0ms preprocess, 354.2ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 356.8ms
+Speed: 6.0ms preprocess, 356.8ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 343.6ms
+Speed: 4.0ms preprocess, 343.6ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 349.9ms
+Speed: 5.5ms preprocess, 349.9ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 316.6ms
+Speed: 7.0ms preprocess, 316.6ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 351.9ms
+Speed: 5.0ms preprocess, 351.9ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 326.4ms
+Speed: 6.0ms preprocess, 326.4ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 329.2ms
+Speed: 6.0ms preprocess, 329.2ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 330.4ms
+Speed: 6.0ms preprocess, 330.4ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 348.3ms
+Speed: 6.0ms preprocess, 348.3ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 372.5ms
+Speed: 5.0ms preprocess, 372.5ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 392.5ms
+Speed: 3.0ms preprocess, 392.5ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 329.5ms
+Speed: 6.0ms preprocess, 329.5ms inference, 1.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 339.2ms
+Speed: 5.0ms preprocess, 339.2ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 347.6ms
+Speed: 6.0ms preprocess, 347.6ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 319.4ms
+Speed: 5.0ms preprocess, 319.4ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 336.2ms
+Speed: 4.0ms preprocess, 336.2ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 317.6ms
+Speed: 6.0ms preprocess, 317.6ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 361.7ms
+Speed: 4.0ms preprocess, 361.7ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 321.2ms
+Speed: 6.0ms preprocess, 321.2ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 324.0ms
+Speed: 5.0ms preprocess, 324.0ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 348.3ms
+Speed: 5.0ms preprocess, 348.3ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 350.9ms
+Speed: 4.0ms preprocess, 350.9ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 322.5ms
+Speed: 6.0ms preprocess, 322.5ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 321.7ms
+Speed: 6.0ms preprocess, 321.7ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 332.2ms
+Speed: 4.0ms preprocess, 332.2ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 327.8ms
+Speed: 6.0ms preprocess, 327.8ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 340.9ms
+Speed: 5.0ms preprocess, 340.9ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 330.1ms
+Speed: 7.0ms preprocess, 330.1ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 332.7ms
+Speed: 5.0ms preprocess, 332.7ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 308.2ms
+Speed: 4.0ms preprocess, 308.2ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 349.1ms
+Speed: 5.0ms preprocess, 349.1ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 316.2ms
+Speed: 5.1ms preprocess, 316.2ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 341.1ms
+Speed: 4.0ms preprocess, 341.1ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 327.3ms
+Speed: 5.0ms preprocess, 327.3ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 326.3ms
+Speed: 4.0ms preprocess, 326.3ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 334.7ms
+Speed: 5.0ms preprocess, 334.7ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 312.7ms
+Speed: 4.0ms preprocess, 312.7ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 339.6ms
+Speed: 5.0ms preprocess, 339.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 358.3ms
+Speed: 4.0ms preprocess, 358.3ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 368.7ms
+Speed: 4.9ms preprocess, 368.7ms inference, 4.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 361.5ms
+Speed: 4.0ms preprocess, 361.5ms inference, 8.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 335.2ms
+Speed: 6.0ms preprocess, 335.2ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 336.7ms
+Speed: 5.0ms preprocess, 336.7ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+0134.mp4 processing...
+
+0: 512x512 (no detections), 323.6ms
+Speed: 4.0ms preprocess, 323.6ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 361.3ms
+Speed: 7.0ms preprocess, 361.3ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 330.6ms
+Speed: 4.2ms preprocess, 330.6ms inference, 0.9ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 319.8ms
+Speed: 4.0ms preprocess, 319.8ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 327.7ms
+Speed: 5.0ms preprocess, 327.7ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 317.4ms
+Speed: 7.1ms preprocess, 317.4ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 333.0ms
+Speed: 5.0ms preprocess, 333.0ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 308.8ms
+Speed: 4.0ms preprocess, 308.8ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 335.3ms
+Speed: 4.0ms preprocess, 335.3ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 353.1ms
+Speed: 4.0ms preprocess, 353.1ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 328.8ms
+Speed: 4.0ms preprocess, 328.8ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 322.3ms
+Speed: 5.5ms preprocess, 322.3ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 311.7ms
+Speed: 7.0ms preprocess, 311.7ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 368.6ms
+Speed: 6.1ms preprocess, 368.6ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 329.8ms
+Speed: 6.0ms preprocess, 329.8ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 325.8ms
+Speed: 5.0ms preprocess, 325.8ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 315.0ms
+Speed: 5.0ms preprocess, 315.0ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 331.8ms
+Speed: 3.0ms preprocess, 331.8ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 323.3ms
+Speed: 4.9ms preprocess, 323.3ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 319.8ms
+Speed: 5.0ms preprocess, 319.8ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 338.6ms
+Speed: 5.0ms preprocess, 338.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 323.8ms
+Speed: 4.0ms preprocess, 323.8ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 324.1ms
+Speed: 5.0ms preprocess, 324.1ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 336.3ms
+Speed: 4.0ms preprocess, 336.3ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 321.2ms
+Speed: 7.0ms preprocess, 321.2ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 332.6ms
+Speed: 6.0ms preprocess, 332.6ms inference, 4.9ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 343.8ms
+Speed: 5.0ms preprocess, 343.8ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 319.9ms
+Speed: 6.0ms preprocess, 319.9ms inference, 6.9ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 359.5ms
+Speed: 7.0ms preprocess, 359.5ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 330.5ms
+Speed: 4.0ms preprocess, 330.5ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 330.5ms
+Speed: 5.0ms preprocess, 330.5ms inference, 6.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 317.6ms
+Speed: 4.0ms preprocess, 317.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 409.6ms
+Speed: 5.0ms preprocess, 409.6ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 310.2ms
+Speed: 4.0ms preprocess, 310.2ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 314.2ms
+Speed: 4.0ms preprocess, 314.2ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 311.8ms
+Speed: 5.0ms preprocess, 311.8ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 328.7ms
+Speed: 4.0ms preprocess, 328.7ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 362.7ms
+Speed: 5.0ms preprocess, 362.7ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 381.7ms
+Speed: 5.0ms preprocess, 381.7ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 355.5ms
+Speed: 7.0ms preprocess, 355.5ms inference, 1.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 359.8ms
+Speed: 6.0ms preprocess, 359.8ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 321.5ms
+Speed: 7.0ms preprocess, 321.5ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 326.2ms
+Speed: 7.0ms preprocess, 326.2ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 320.3ms
+Speed: 7.0ms preprocess, 320.3ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 340.8ms
+Speed: 4.0ms preprocess, 340.8ms inference, 0.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 334.1ms
+Speed: 4.0ms preprocess, 334.1ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 (no detections), 331.2ms
+Speed: 4.0ms preprocess, 331.2ms inference, 1.0ms postprocess per image at shape (1, 3, 512, 512)
+0328.mp4 processing...
+
+0: 512x512 6 Potholes, 292.6ms
+Speed: 4.0ms preprocess, 292.6ms inference, 23.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 306.6ms
+Speed: 6.0ms preprocess, 306.6ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 329.7ms
+Speed: 5.0ms preprocess, 329.7ms inference, 9.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 330.3ms
+Speed: 6.1ms preprocess, 330.3ms inference, 9.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 345.7ms
+Speed: 5.0ms preprocess, 345.7ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 321.0ms
+Speed: 5.0ms preprocess, 321.0ms inference, 9.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 321.5ms
+Speed: 3.0ms preprocess, 321.5ms inference, 9.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 321.7ms
+Speed: 4.9ms preprocess, 321.7ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 317.5ms
+Speed: 7.0ms preprocess, 317.5ms inference, 4.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 321.6ms
+Speed: 5.0ms preprocess, 321.6ms inference, 11.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 331.5ms
+Speed: 4.0ms preprocess, 331.5ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 324.3ms
+Speed: 5.0ms preprocess, 324.3ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 326.7ms
+Speed: 5.0ms preprocess, 326.7ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 349.6ms
+Speed: 4.0ms preprocess, 349.6ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 332.6ms
+Speed: 5.0ms preprocess, 332.6ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 336.3ms
+Speed: 7.0ms preprocess, 336.3ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 332.7ms
+Speed: 4.0ms preprocess, 332.7ms inference, 9.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 355.5ms
+Speed: 4.0ms preprocess, 355.5ms inference, 8.4ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 382.7ms
+Speed: 5.5ms preprocess, 382.7ms inference, 4.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 323.0ms
+Speed: 6.0ms preprocess, 323.0ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 338.2ms
+Speed: 5.0ms preprocess, 338.2ms inference, 11.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 335.4ms
+Speed: 4.0ms preprocess, 335.4ms inference, 6.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 336.3ms
+Speed: 6.0ms preprocess, 336.3ms inference, 8.7ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 365.7ms
+Speed: 4.5ms preprocess, 365.7ms inference, 8.4ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 381.3ms
+Speed: 6.0ms preprocess, 381.3ms inference, 13.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 355.2ms
+Speed: 5.0ms preprocess, 355.2ms inference, 9.2ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 312.4ms
+Speed: 4.0ms preprocess, 312.4ms inference, 14.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 321.7ms
+Speed: 6.0ms preprocess, 321.7ms inference, 16.9ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 346.3ms
+Speed: 6.5ms preprocess, 346.3ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 332.3ms
+Speed: 5.0ms preprocess, 332.3ms inference, 11.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 332.1ms
+Speed: 6.0ms preprocess, 332.1ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 350.5ms
+Speed: 9.0ms preprocess, 350.5ms inference, 8.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 346.6ms
+Speed: 4.0ms preprocess, 346.6ms inference, 9.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 332.4ms
+Speed: 4.0ms preprocess, 332.4ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 356.2ms
+Speed: 4.0ms preprocess, 356.2ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 330.5ms
+Speed: 4.0ms preprocess, 330.5ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 340.9ms
+Speed: 4.0ms preprocess, 340.9ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 329.0ms
+Speed: 6.0ms preprocess, 329.0ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 380.5ms
+Speed: 6.0ms preprocess, 380.5ms inference, 9.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 335.5ms
+Speed: 4.0ms preprocess, 335.5ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 333.6ms
+Speed: 5.0ms preprocess, 333.6ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 328.7ms
+Speed: 6.0ms preprocess, 328.7ms inference, 7.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 326.9ms
+Speed: 9.6ms preprocess, 326.9ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 353.1ms
+Speed: 5.0ms preprocess, 353.1ms inference, 9.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 322.3ms
+Speed: 5.0ms preprocess, 322.3ms inference, 9.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 361.4ms
+Speed: 6.0ms preprocess, 361.4ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 327.6ms
+Speed: 4.0ms preprocess, 327.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+0325.mp4 processing...
+
+0: 512x512 2 Potholes, 329.4ms
+Speed: 7.0ms preprocess, 329.4ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 336.3ms
+Speed: 4.0ms preprocess, 336.3ms inference, 11.9ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 332.2ms
+Speed: 5.0ms preprocess, 332.2ms inference, 17.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 322.8ms
+Speed: 4.0ms preprocess, 322.8ms inference, 18.7ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 322.7ms
+Speed: 7.0ms preprocess, 322.7ms inference, 14.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 328.2ms
+Speed: 5.9ms preprocess, 328.2ms inference, 19.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 337.7ms
+Speed: 5.0ms preprocess, 337.7ms inference, 17.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 332.4ms
+Speed: 5.0ms preprocess, 332.4ms inference, 17.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 349.2ms
+Speed: 5.0ms preprocess, 349.2ms inference, 16.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 328.0ms
+Speed: 5.0ms preprocess, 328.0ms inference, 9.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 337.3ms
+Speed: 5.0ms preprocess, 337.3ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 338.3ms
+Speed: 6.0ms preprocess, 338.3ms inference, 10.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 336.4ms
+Speed: 6.0ms preprocess, 336.4ms inference, 17.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 5 Potholes, 357.0ms
+Speed: 5.0ms preprocess, 357.0ms inference, 20.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 5 Potholes, 342.8ms
+Speed: 6.0ms preprocess, 342.8ms inference, 21.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 330.7ms
+Speed: 4.0ms preprocess, 330.7ms inference, 18.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 5 Potholes, 332.3ms
+Speed: 6.0ms preprocess, 332.3ms inference, 19.6ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 346.6ms
+Speed: 4.1ms preprocess, 346.6ms inference, 18.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 334.6ms
+Speed: 5.0ms preprocess, 334.6ms inference, 17.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 334.7ms
+Speed: 3.5ms preprocess, 334.7ms inference, 13.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 358.1ms
+Speed: 6.0ms preprocess, 358.1ms inference, 21.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 346.4ms
+Speed: 6.0ms preprocess, 346.4ms inference, 16.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 338.5ms
+Speed: 6.0ms preprocess, 338.5ms inference, 16.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 330.3ms
+Speed: 4.0ms preprocess, 330.3ms inference, 18.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 331.7ms
+Speed: 6.0ms preprocess, 331.7ms inference, 17.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 338.3ms
+Speed: 5.0ms preprocess, 338.3ms inference, 17.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 355.1ms
+Speed: 8.0ms preprocess, 355.1ms inference, 16.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 347.3ms
+Speed: 4.0ms preprocess, 347.3ms inference, 16.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 348.5ms
+Speed: 5.0ms preprocess, 348.5ms inference, 16.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 341.3ms
+Speed: 5.1ms preprocess, 341.3ms inference, 15.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 328.3ms
+Speed: 3.0ms preprocess, 328.3ms inference, 17.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 333.8ms
+Speed: 6.0ms preprocess, 333.8ms inference, 18.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 337.0ms
+Speed: 6.0ms preprocess, 337.0ms inference, 15.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 350.3ms
+Speed: 5.0ms preprocess, 350.3ms inference, 20.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 332.7ms
+Speed: 6.0ms preprocess, 332.7ms inference, 20.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 332.4ms
+Speed: 6.0ms preprocess, 332.4ms inference, 16.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 358.9ms
+Speed: 6.0ms preprocess, 358.9ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 338.7ms
+Speed: 5.9ms preprocess, 338.7ms inference, 17.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 336.8ms
+Speed: 6.0ms preprocess, 336.8ms inference, 17.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 343.6ms
+Speed: 6.0ms preprocess, 343.6ms inference, 17.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 337.4ms
+Speed: 4.0ms preprocess, 337.4ms inference, 14.2ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 4 Potholes, 345.3ms
+Speed: 5.0ms preprocess, 345.3ms inference, 17.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 359.9ms
+Speed: 6.0ms preprocess, 359.9ms inference, 17.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 331.3ms
+Speed: 6.0ms preprocess, 331.3ms inference, 17.5ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 357.4ms
+Speed: 6.0ms preprocess, 357.4ms inference, 15.6ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 357.2ms
+Speed: 5.0ms preprocess, 357.2ms inference, 15.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 3 Potholes, 369.6ms
+Speed: 6.0ms preprocess, 369.6ms inference, 17.5ms postprocess per image at shape (1, 3, 512, 512)</code></pre>
+</div>
+</div>
+</section>
+<section id="detection" class="level1">
+<h1>Detection</h1>
+<div id="723b5723" class="cell" data-scrolled="true" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cv2</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>video_path <span class="op">=</span> <span class="st">"train/rgb/0215.mp4"</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>cap <span class="op">=</span> cv2.VideoCapture(video_path)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> cap.isOpened():</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    ret, frame <span class="op">=</span> cap.read()</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> ret:</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Call YOLO model for output and get the output</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> model.predict(frame)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Manipulate boxes in predictions</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> result <span class="kw">in</span> results:</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> bbox <span class="kw">in</span> result.boxes.xyxy:</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Kutuyu işaretle</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>            x1, y1, x2, y2 <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, bbox)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>            cv2.rectangle(frame, (x1, y1), (x2, y2), (<span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">0</span>), <span class="dv">2</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>            text <span class="op">=</span> <span class="ss">f"Class: Pothole"</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>            cv2.putText(frame, text, (x1, y1 <span class="op">-</span> <span class="dv">10</span>), cv2.FONT_HERSHEY_SIMPLEX, <span class="fl">0.5</span>, (<span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">0</span>), <span class="dv">2</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    cv2.imshow(<span class="st">"YOLOv8e Object Detection"</span>, frame)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cv2.waitKey(<span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span> <span class="op">==</span> <span class="bu">ord</span>(<span class="st">'q'</span>):</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>cap.release()</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>cv2.destroyAllWindows()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+0: 512x512 1 Pothole, 234.5ms
+Speed: 4.1ms preprocess, 234.5ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 271.8ms
+Speed: 4.0ms preprocess, 271.8ms inference, 6.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 270.6ms
+Speed: 4.0ms preprocess, 270.6ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 331.3ms
+Speed: 5.0ms preprocess, 331.3ms inference, 6.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 252.6ms
+Speed: 4.0ms preprocess, 252.6ms inference, 4.1ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 246.4ms
+Speed: 4.0ms preprocess, 246.4ms inference, 4.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 248.3ms
+Speed: 6.4ms preprocess, 248.3ms inference, 5.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 237.5ms
+Speed: 4.0ms preprocess, 237.5ms inference, 2.9ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 244.9ms
+Speed: 4.0ms preprocess, 244.9ms inference, 4.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 222.4ms
+Speed: 3.6ms preprocess, 222.4ms inference, 4.0ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 1 Pothole, 241.2ms
+Speed: 5.5ms preprocess, 241.2ms inference, 4.2ms postprocess per image at shape (1, 3, 512, 512)
+
+0: 512x512 2 Potholes, 222.7ms
+Speed: 3.2ms preprocess, 222.7ms inference, 6.2ms postprocess per image at shape (1, 3, 512, 512)</code></pre>
+</div>
+</div>
+<p><img align="center" height="447" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2FxbDZnaHhmaG83eGZ5YzZycm85eG56ajhlaHR2NmRhZzhqemxpaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fjgqYjVkzfQ9a/giphy.gif"></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Hacettepe University @<span class="dv">2024</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/fevzikilas\.github\.io\/Pothole_detection");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/fevzikilas/Pothole_detection/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
